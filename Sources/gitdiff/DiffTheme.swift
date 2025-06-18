@@ -136,7 +136,7 @@ public extension DiffTheme {
         removedText: Color(red: 255/255, green: 179/255, blue: 184/255),
         contextBackground: Color(red: 28/255, green: 28/255, blue: 30/255),
         contextText: Color.white,
-        lineNumberBackground: Color(red: 28/255, green: 28/255, blue: 30/255),
+        lineNumberBackground: Color(red: 38/255, green: 38/255, blue: 40/255),
         lineNumberText: Color(red: 142/255, green: 142/255, blue: 147/255),
         headerBackground: Color(red: 44/255, green: 44/255, blue: 46/255),
         headerText: Color(red: 147/255, green: 178/255, blue: 253/255),
