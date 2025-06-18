@@ -61,12 +61,13 @@ struct DiffFileView: View {
                 DiffLineView(line: line)
               }
             }
+            .background(configuration.theme.contextBackground)
           }
         }
       }
     }
     .frame(maxWidth: .infinity)
-    .background(Color(UIColor.systemBackground))
+    .background(configuration.theme.contextBackground)
     .cornerRadius(6)
     .overlay(
       RoundedRectangle(cornerRadius: 6)
