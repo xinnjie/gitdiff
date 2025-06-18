@@ -48,8 +48,8 @@ public struct DiffTheme: Equatable, Hashable {
 
 // MARK: - Built-in Themes
 public extension DiffTheme {
-    /// GitHub's default diff colors
-    static let github = DiffTheme(
+    /// Light theme (GitHub style)
+    static let light = DiffTheme(
         addedBackground: Color(red: 230/255, green: 255/255, blue: 237/255),
         addedText: Color(red: 34/255, green: 134/255, blue: 58/255),
         removedBackground: Color(red: 255/255, green: 238/255, blue: 240/255),
@@ -64,7 +64,23 @@ public extension DiffTheme {
         fileHeaderText: Color(red: 36/255, green: 41/255, blue: 47/255)
     )
     
-    /// GitLab's default diff colors
+    /// Dark theme
+    static let dark = DiffTheme(
+        addedBackground: Color(red: 40/255, green: 60/255, blue: 40/255),
+        addedText: Color(red: 135/255, green: 215/255, blue: 95/255),
+        removedBackground: Color(red: 60/255, green: 40/255, blue: 40/255),
+        removedText: Color(red: 245/255, green: 135/255, blue: 145/255),
+        contextBackground: Color(red: 30/255, green: 30/255, blue: 30/255),
+        contextText: Color(red: 212/255, green: 212/255, blue: 212/255),
+        lineNumberBackground: Color(red: 38/255, green: 38/255, blue: 40/255),
+        lineNumberText: Color(red: 133/255, green: 133/255, blue: 133/255),
+        headerBackground: Color(red: 40/255, green: 40/255, blue: 60/255),
+        headerText: Color(red: 156/255, green: 220/255, blue: 254/255),
+        fileHeaderBackground: Color(red: 37/255, green: 37/255, blue: 38/255),
+        fileHeaderText: Color(red: 204/255, green: 204/255, blue: 204/255)
+    )
+    
+    /// GitLab theme
     static let gitlab = DiffTheme(
         addedBackground: Color(red: 221/255, green: 244/255, blue: 221/255),
         addedText: Color(red: 24/255, green: 128/255, blue: 56/255),
@@ -80,67 +96,22 @@ public extension DiffTheme {
         fileHeaderText: Color(red: 31/255, green: 30/255, blue: 36/255)
     )
     
-    /// VS Code light theme colors
-    static let vsCodeLight = DiffTheme(
-        addedBackground: Color(red: 230/255, green: 255/255, blue: 237/255),
-        addedText: Color(red: 0/255, green: 102/255, blue: 0/255),
-        removedBackground: Color(red: 255/255, green: 230/255, blue: 230/255),
-        removedText: Color(red: 153/255, green: 0/255, blue: 0/255),
-        contextBackground: Color.white,
-        contextText: Color.black,
-        lineNumberBackground: Color(red: 245/255, green: 245/255, blue: 245/255),
-        lineNumberText: Color(red: 110/255, green: 110/255, blue: 110/255),
-        headerBackground: Color(red: 230/255, green: 230/255, blue: 255/255),
-        headerText: Color(red: 0/255, green: 0/255, blue: 153/255),
-        fileHeaderBackground: Color(red: 240/255, green: 240/255, blue: 240/255),
-        fileHeaderText: Color.black
-    )
+    /// Default theme (alias for light)
+    static let `default` = light
     
-    /// VS Code dark theme colors
-    static let vsCodeDark = DiffTheme(
-        addedBackground: Color(red: 40/255, green: 60/255, blue: 40/255),
-        addedText: Color(red: 135/255, green: 215/255, blue: 95/255),
-        removedBackground: Color(red: 60/255, green: 40/255, blue: 40/255),
-        removedText: Color(red: 245/255, green: 135/255, blue: 145/255),
-        contextBackground: Color(red: 30/255, green: 30/255, blue: 30/255),
-        contextText: Color(red: 212/255, green: 212/255, blue: 212/255),
-        lineNumberBackground: Color(red: 30/255, green: 30/255, blue: 30/255),
-        lineNumberText: Color(red: 133/255, green: 133/255, blue: 133/255),
-        headerBackground: Color(red: 40/255, green: 40/255, blue: 60/255),
-        headerText: Color(red: 156/255, green: 220/255, blue: 254/255),
-        fileHeaderBackground: Color(red: 37/255, green: 37/255, blue: 38/255),
-        fileHeaderText: Color(red: 204/255, green: 204/255, blue: 204/255)
-    )
+    // Deprecated theme aliases for backward compatibility
+    @available(*, deprecated, renamed: "light")
+    static let github = light
     
-    /// Xcode light theme colors
-    static let xcodeLight = DiffTheme(
-        addedBackground: Color(red: 236/255, green: 253/255, blue: 240/255),
-        addedText: Color(red: 28/255, green: 70/255, blue: 0/255),
-        removedBackground: Color(red: 255/255, green: 238/255, blue: 240/255),
-        removedText: Color(red: 196/255, green: 26/255, blue: 22/255),
-        contextBackground: Color.white,
-        contextText: Color.black,
-        lineNumberBackground: Color(red: 242/255, green: 242/255, blue: 247/255),
-        lineNumberText: Color(red: 142/255, green: 142/255, blue: 147/255),
-        headerBackground: Color(red: 242/255, green: 242/255, blue: 247/255),
-        headerText: Color(red: 59/255, green: 131/255, blue: 246/255),
-        fileHeaderBackground: Color(red: 242/255, green: 242/255, blue: 247/255),
-        fileHeaderText: Color.black
-    )
+    @available(*, deprecated, message: "Use .light or .dark instead")
+    static let vsCodeLight = light
     
-    /// Xcode dark theme colors
-    static let xcodeDark = DiffTheme(
-        addedBackground: Color(red: 47/255, green: 74/255, blue: 58/255),
-        addedText: Color(red: 145/255, green: 220/255, blue: 169/255),
-        removedBackground: Color(red: 74/255, green: 47/255, blue: 47/255),
-        removedText: Color(red: 255/255, green: 179/255, blue: 184/255),
-        contextBackground: Color(red: 28/255, green: 28/255, blue: 30/255),
-        contextText: Color.white,
-        lineNumberBackground: Color(red: 38/255, green: 38/255, blue: 40/255),
-        lineNumberText: Color(red: 142/255, green: 142/255, blue: 147/255),
-        headerBackground: Color(red: 44/255, green: 44/255, blue: 46/255),
-        headerText: Color(red: 147/255, green: 178/255, blue: 253/255),
-        fileHeaderBackground: Color(red: 44/255, green: 44/255, blue: 46/255),
-        fileHeaderText: Color.white
-    )
+    @available(*, deprecated, message: "Use .light or .dark instead")
+    static let vsCodeDark = dark
+    
+    @available(*, deprecated, message: "Use .light or .dark instead")
+    static let xcodeLight = light
+    
+    @available(*, deprecated, message: "Use .light or .dark instead")
+    static let xcodeDark = dark
 }
