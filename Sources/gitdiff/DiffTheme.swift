@@ -3,7 +3,7 @@ import SwiftUI
 /// Color theme for diff rendering.
 ///
 /// Use built-in themes or create custom themes for different visual styles.
-public struct DiffTheme: Equatable {
+public struct DiffTheme: Equatable, Hashable {
     public let addedBackground: Color
     public let addedText: Color
     public let removedBackground: Color
