@@ -1,0 +1,225 @@
+# gitdiff
+
+Render ugly git diff output into something users actually want to look at in their phones.
+
+## Overview
+
+gitdiff is a native Swift library for rendering Git diffs in SwiftUI. It offers accurate, efficient diff visualization with the look and feel of tools like GitHub or GitLab, while leveraging the performance and customization benefits.
+
+<p align="center">
+  <img src="https://img.shields.io/badge/Swift-5.9+-orange.svg" />
+  <img src="https://img.shields.io/badge/iOS-15.0+-blue.svg" />
+  <img src="https://img.shields.io/badge/SwiftUI-Native-green.svg" />
+</p>
+
+## Installation
+
+### Swift Package Manager
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/tornikegomareli/gitdiff.git", from: "0.0.1")
+]
+```
+
+Or add through Xcode: **File → Add Package Dependencies**
+
+## Quick Start
+
+```swift
+import SwiftUI
+import gitdiff
+
+struct ContentView: View {
+    let diffText = """
+        @@ -1,3 +1,3 @@
+        -let oldValue = "Hello"
+        +let newValue = "World"
+         let unchanged = true
+        """
+
+    var body: some View {
+        DiffRenderer(diffText: diffText)
+            .diffTheme(.dark)
+    }
+}
+```
+
+## Themes
+
+gitdiff comes with three crafted themes:
+
+| Light (GitHub Style) | Dark | GitLab |
+|---------------------|------|--------|
+| Clean and familiar | Easy on the eyes | Simple and clean |
+
+### Using Built-in Themes
+
+```swift
+DiffRenderer(diffText: diffContent)
+    .diffTheme(.light)    // GitHub-style
+    .diffTheme(.dark)     // Modern dark theme
+    .diffTheme(.gitlab)   // GitLab's style
+```
+
+### Creating Custom Themes
+
+```swift
+let customTheme = DiffTheme(
+    addedBackground: Color.green.opacity(0.2),
+    addedText: Color.green,
+    removedBackground: Color.red.opacity(0.2),
+    removedText: Color.red,
+    contextBackground: Color(UIColor.systemBackground),
+    contextText: Color.primary,
+    lineNumberBackground: Color.gray.opacity(0.1),
+    lineNumberText: Color.secondary,
+    headerBackground: Color.blue.opacity(0.1),
+    headerText: Color.blue,
+    fileHeaderBackground: Color.gray.opacity(0.05),
+    fileHeaderText: Color.primary
+)
+
+DiffRenderer(diffText: diffContent)
+    .diffTheme(customTheme)
+```
+
+## Configuration
+
+### View Modifiers
+
+Chain modifiers for quick configuration:
+
+```swift
+DiffRenderer(diffText: diffContent)
+    .diffTheme(.dark)
+    .diffLineNumbers(true)
+    .diffFont(size: 14, weight: .medium)
+    .diffLineSpacing(.comfortable)
+    .diffWordWrap(true)
+```
+
+### Configuration Object
+
+For reusable configurations:
+
+```swift
+let codeReviewConfig = DiffConfiguration(
+    theme: .light,
+    showLineNumbers: true,
+    fontSize: 13,
+    fontWeight: .regular,
+    lineSpacing: .comfortable,
+    wordWrap: false
+)
+
+DiffRenderer(diffText: diffContent)
+    .environment(\.diffConfiguration, codeReviewConfig)
+```
+
+### Preset Configurations
+
+Ready-to-use configurations for common scenarios:
+
+```swift
+// For code reviews - compact and efficient
+.environment(\.diffConfiguration, .codeReview)
+
+// For presentations - large and readable
+.environment(\.diffConfiguration, .presentation)
+```
+
+## Advanced Usage
+
+### Working with the Parser
+
+For custom rendering needs:
+
+```swift
+let parser = DiffParser()
+let files = parser.parse(diffText)
+
+ForEach(files) { file in
+    VStack(alignment: .leading) {
+        Text(file.displayName)
+            .font(.headline)
+
+        ForEach(file.hunks) { hunk in
+            Text(hunk.header)
+                .font(.caption)
+                .foregroundColor(.secondary)
+
+            ForEach(hunk.lines) { line in
+                // Custom line rendering
+            }
+        }
+    }
+}
+```
+
+### Integration Examples
+
+**With Git Commands:**
+```swift
+let gitOutput = shell("git diff HEAD~1")
+DiffRenderer(diffText: gitOutput)
+```
+
+**In a Code Review App:**
+```swift
+struct PullRequestView: View {
+    let pullRequest: PullRequest
+    @State private var showLineNumbers = true
+
+    var body: some View {
+        ScrollView {
+            DiffRenderer(diffText: pullRequest.diff)
+                .diffTheme(.light)
+                .diffLineNumbers(showLineNumbers)
+        }
+        .toolbar {
+            Toggle("Line Numbers", isOn: $showLineNumbers)
+        }
+    }
+}
+```
+### View Modifiers
+
+- `.diffTheme(_ theme: DiffTheme)` - Apply a color theme
+- `.diffLineNumbers(_ show: Bool)` - Toggle line numbers
+- `.diffFont(size: CGFloat?, weight: Font.Weight?, design: Font.Design?)` - Configure font
+- `.diffLineSpacing(_ spacing: LineSpacing)` - Set line spacing
+- `.diffWordWrap(_ wrap: Bool)` - Enable word wrapping
+- `.diffConfiguration(_ config: DiffConfiguration)` - Apply complete configuration
+
+## Example App
+
+Explore all features with the included example app:
+
+1. Open `GitDiffExample/GitDiffExample.xcodeproj`
+2. Run the app to see:
+   - Live theme switching
+   - Interactive customization
+   - Various diff examples
+   - Code snippets
+
+## Performance
+
+- Efficient parsing of large diffs
+- Smooth scrolling performance
+- Minimal memory footprint
+- No external dependencies (except Docc)
+
+## Requirements
+
+- iOS 15.0+
+- Swift 5.9+
+- Xcode 15.0+
+
+## Contributing
+
+Any ideas or improvements? Create pull requests.
+
+## License
+
+MIT License - see [LICENSE](LICENSE) for details.
