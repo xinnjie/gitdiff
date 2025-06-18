@@ -12,7 +12,7 @@ gitdiff is a native Swift renderer and SwiftUI component for rendering Git diffs
   <img src="https://img.shields.io/badge/SwiftUI-Native-green.svg" />
 </p>
 
-## Installation
+## Showcase
 
 
 <p align="center">
@@ -24,6 +24,8 @@ gitdiff is a native Swift renderer and SwiftUI component for rendering Git diffs
   <img src="https://github.com/user-attachments/assets/c8da701d-f952-4fea-a7bd-45cef2c40f2d" width="30%" />
   <img src="https://github.com/user-attachments/assets/0391a6c3-169b-4d78-92ad-7b64ed5be90c" width="30%" />
 </p>
+
+## Installation
 
 
 ### Swift Package Manager
