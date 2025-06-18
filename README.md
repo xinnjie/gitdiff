@@ -14,11 +14,23 @@ gitdiff is a native Swift renderer and SwiftUI component for rendering Git diffs
 
 ## Installation
 
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/59f9d428-0e53-4084-b555-d90f5de7288f" width="30%" />
+  <img src="https://github.com/user-attachments/assets/13a52f90-d0e3-4041-8fc9-a6d5f7cff46c" width="30%" />
+</p>
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/ee6fbe6a-d3b9-48f9-9e57-0cc313dca031" width="30%" />
+  <img src="https://github.com/user-attachments/assets/c8da701d-f952-4fea-a7bd-45cef2c40f2d" width="30%" />
+  <img src="https://github.com/user-attachments/assets/0391a6c3-169b-4d78-92ad-7b64ed5be90c" width="30%" />
+</p>
+
+
 ### Swift Package Manager
 
 ```swift
 dependencies: [
-    .package(url: "https://github.com/tornikegomareli/gitdiff.git", from: "0.0.1")
+    .package(url: "https://github.com/tornikegomareli/gitdiff.git", from: "0.0.5")
 ]
 ```
 
