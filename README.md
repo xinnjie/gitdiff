@@ -234,4 +234,4 @@ Any ideas or improvements? Create pull requests.
 
 ## License
 
-MIT License - see [LICENSE](LICENSE) for details.
+MIT License - see [LICENSE](https://github.com/tornikegomareli/gitdiff/blob/main/LICENSE) for details.
