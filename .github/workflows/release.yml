@@ -1,16 +1,15 @@
 name: Release
 
 on:
-  workflow_run:
-    workflows: ["Swift"]
-    types:
-      - completed
+  pull_request:
+    types: [closed]
     branches: [ "main" ]
 
 jobs:
   release:
     runs-on: ubuntu-latest
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    # Only run when PR is merged (not just closed) and has 'release' label
+    if: github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'release')
     permissions:
       contents: write
     steps:
@@ -41,8 +40,21 @@ jobs:
         MINOR=${VERSION_PARTS[1]:-0}
         PATCH=${VERSION_PARTS[2]:-0}
         
-        # Increment patch version
-        PATCH=$((PATCH + 1))
+        # Check PR labels for version bump type
+        if ${{ contains(github.event.pull_request.labels.*.name, 'major') }}; then
+          MAJOR=$((MAJOR + 1))
+          MINOR=0
+          PATCH=0
+          echo "Major version bump"
+        elif ${{ contains(github.event.pull_request.labels.*.name, 'minor') }}; then
+          MINOR=$((MINOR + 1))
+          PATCH=0
+          echo "Minor version bump"
+        else
+          # Default to patch bump
+          PATCH=$((PATCH + 1))
+          echo "Patch version bump"
+        fi
         
         # Create new version
         NEW_VERSION="$MAJOR.$MINOR.$PATCH"
@@ -57,6 +69,37 @@ jobs:
         git tag -a "$NEW_VERSION" -m "Release version $NEW_VERSION"
         git push origin "$NEW_VERSION"
 
+    - name: Generate release notes
+      id: release_notes
+      run: |
+        # Extract PR body for release notes
+        PR_BODY=$(cat << 'EOF'
+        ${{ github.event.pull_request.body }}
+        EOF
+        )
+        
+        # Create release notes
+        cat << EOF > release_notes.md
+        ## Release ${{ steps.next_version.outputs.new_version }}
+        
+        ### Pull Request
+        #${{ github.event.pull_request.number }} - ${{ github.event.pull_request.title }}
+        
+        ### Description
+        ${PR_BODY}
+        
+        ### Changes
+        See the [full changelog](https://github.com/${{ github.repository }}/compare/${{ steps.get_tag.outputs.latest_tag }}...${{ steps.next_version.outputs.new_version }})
+        
+        ### Contributors
+        - @${{ github.event.pull_request.user.login }}
+        EOF
+        
+        # Output the release notes
+        echo "release_notes<<EOF" >> $GITHUB_OUTPUT
+        cat release_notes.md >> $GITHUB_OUTPUT
+        echo "EOF" >> $GITHUB_OUTPUT
+
     - name: Create Release
       uses: actions/create-release@v1
       env:
@@ -64,12 +107,6 @@ jobs:
       with:
         tag_name: ${{ steps.next_version.outputs.new_version }}
         release_name: Release ${{ steps.next_version.outputs.new_version }}
-        body: |
-          ## Changes in this release
-          
-          Auto-generated release for version ${{ steps.next_version.outputs.new_version }}
-          
-          ### What's Changed
-          See the [commit history](https://github.com/${{ github.repository }}/compare/${{ steps.get_tag.outputs.latest_tag }}...${{ steps.next_version.outputs.new_version }}) for a full list of changes.
+        body: ${{ steps.release_notes.outputs.release_notes }}
         draft: false
         prerelease: false
