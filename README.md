@@ -208,7 +208,7 @@ Explore all features with the included example app:
 - Efficient parsing of large diffs
 - Smooth scrolling performance
 - Minimal memory footprint
-- No external dependencies (except Docc)
+- No external dependencies
 
 ## Requirements
 
