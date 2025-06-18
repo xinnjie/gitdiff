@@ -5,15 +5,14 @@
 //  Created by Tornike Gomareli on 18.06.25.
 //
 
-
 import SwiftUI
 
 /// View for rendering a single diff line with GitHub-style formatting
 struct DiffLineView: View {
   let line: DiffLine
-  
+
   @Environment(\.diffConfiguration) private var configuration
-  
+
   private var backgroundColor: Color {
     switch line.type {
     case .added:
@@ -26,7 +25,7 @@ struct DiffLineView: View {
       return configuration.theme.headerBackground
     }
   }
-  
+
   private var foregroundColor: Color {
     switch line.type {
     case .added:
@@ -39,7 +38,7 @@ struct DiffLineView: View {
       return configuration.theme.headerText
     }
   }
-  
+
   private var linePrefix: String {
     switch line.type {
     case .added:
@@ -50,7 +49,7 @@ struct DiffLineView: View {
       return " "
     }
   }
-  
+
   var body: some View {
     HStack(spacing: 0) {
       if configuration.showLineNumbers {
@@ -60,7 +59,7 @@ struct DiffLineView: View {
           .frame(width: 20, alignment: .trailing)
           .padding(.horizontal, 4)
           .background(configuration.theme.lineNumberBackground)
-        
+
         Text(line.newLineNumber.map(String.init) ?? "")
           .font(.system(size: configuration.fontSize * 0.85, design: configuration.fontFamily))
           .foregroundColor(configuration.theme.lineNumberText)
@@ -68,15 +67,23 @@ struct DiffLineView: View {
           .padding(.horizontal, 4)
           .background(configuration.theme.lineNumberBackground)
       }
-      
+
       HStack(alignment: .top, spacing: 0) {
         Text(linePrefix)
-          .font(.system(size: configuration.fontSize, weight: configuration.fontWeight, design: configuration.fontFamily))
+          .font(
+            .system(
+              size: configuration.fontSize, weight: configuration.fontWeight,
+              design: configuration.fontFamily)
+          )
           .foregroundColor(foregroundColor)
           .padding(.leading, configuration.contentPadding.leading)
-        
+
         Text(line.content)
-          .font(.system(size: configuration.fontSize, weight: configuration.fontWeight, design: configuration.fontFamily))
+          .font(
+            .system(
+              size: configuration.fontSize, weight: configuration.fontWeight,
+              design: configuration.fontFamily)
+          )
           .foregroundColor(foregroundColor)
           .padding(.leading, 4)
           .padding(.trailing, configuration.contentPadding.trailing)
@@ -98,7 +105,7 @@ struct DiffLineView: View {
         newLineNumber: 3
       )
     )
-    
+
     DiffLineView(
       line: DiffLine(
         type: .added,
@@ -107,7 +114,7 @@ struct DiffLineView: View {
         newLineNumber: 4
       )
     )
-    
+
     DiffLineView(
       line: DiffLine(
         type: .context,
@@ -116,7 +123,7 @@ struct DiffLineView: View {
         newLineNumber: 5
       )
     )
-    
+
     DiffLineView(
       line: DiffLine(
         type: .removed,
@@ -125,7 +132,7 @@ struct DiffLineView: View {
         newLineNumber: nil
       )
     )
-    
+
     DiffLineView(
       line: DiffLine(
         type: .added,
@@ -135,5 +142,5 @@ struct DiffLineView: View {
       )
     )
   }
-  .background(Color(UIColor.systemBackground))
+  .background(Color(.systemBackground))
 }
