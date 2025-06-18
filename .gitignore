@@ -166,3 +166,5 @@ GitDiffExample
 CLAUDE.md
 PLAN.md
 task.md
+.swiftpm
+.build
