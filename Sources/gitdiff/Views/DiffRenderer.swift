@@ -5,7 +5,6 @@
 //  Created by Tornike Gomareli on 18.06.25.
 //
 
-
 import SwiftUI
 
 /// A SwiftUI view that renders git diff output with syntax highlighting.
@@ -61,44 +60,44 @@ public struct DiffRenderer: View {
         .padding()
       }
     }
-    .background(Color(UIColor.systemBackground))
+    .background(Color(.systemBackground))
   }
 }
 
 #Preview {
   let text = """
-diff --git a/example.swift b/example.swift
-index 1234567..abcdefg 100644
---- a/example.swift
-+++ b/example.swift
-@@ -1,5 +1,6 @@
- import SwiftUI
-
- struct ContentView: View {
-+    let title = "Hello World"
-     var body: some View {
--        Text("Hello, World!")
-+        Text(title)
+    diff --git a/example.swift b/example.swift
+    index 1234567..abcdefg 100644
+    --- a/example.swift
+    +++ b/example.swift
+    @@ -1,5 +1,6 @@
+    
+    
+     struct ContentView: View {
+    +    let title = "Hello World"
+         var body: some View {
+    -        Text("Hello, World!")
+    +        Text(title)
+         }
      }
- }
-diff --git a/AppDelegate.swift b/AppDelegate.swift
-index 2345678..bcdefgh 100644
---- a/AppDelegate.swift
-+++ b/AppDelegate.swift
-@@ -10,8 +10,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
-     func applicationDidFinishLaunching(_ notification: Notification) {
-         // Insert code here to initialize your application
-+        setupApplication()
+    diff --git a/AppDelegate.swift b/AppDelegate.swift
+    index 2345678..bcdefgh 100644
+    --- a/AppDelegate.swift
+    +++ b/AppDelegate.swift
+    @@ -10,8 +10,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
+         func applicationDidFinishLaunching(_ notification: Notification) {
+             // Insert code here to initialize your application
+    +        setupApplication()
+         }
+    
+    -    func applicationWillTerminate(_ notification: Notification) {
+    -        // Insert code here to tear down your application
+    +    private func setupApplication() {
+    +        // Configure app settings
+    +        print("Application setup complete")
+         }
      }
- 
--    func applicationWillTerminate(_ notification: Notification) {
--        // Insert code here to tear down your application
-+    private func setupApplication() {
-+        // Configure app settings
-+        print("Application setup complete")
-     }
- }
-"""
+    """
   // Simple usage with default GitHub theme
   DiffRenderer(diffText: text)
   
