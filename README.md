@@ -1,10 +1,10 @@
 # gitdiff
 
-Render ugly git diff output into something users actually want to look at in their phones.
+Render git diff output, simple as that.
 
 ## Overview
 
-gitdiff is a native Swift library for rendering Git diffs in SwiftUI. It offers accurate, efficient diff visualization with the look and feel of tools like GitHub or GitLab, while leveraging the performance and customization benefits.
+gitdiff is a native Swift renderer and SwiftUI component for rendering Git diffs on iOS. It offers accurate, efficient and customized diff visualization with the look and feel of tools like GitHub or GitLab.
 
 <p align="center">
   <img src="https://img.shields.io/badge/Swift-5.9+-orange.svg" />
