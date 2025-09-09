@@ -142,5 +142,5 @@ struct DiffLineView: View {
       )
     )
   }
-  .background(Color(.systemBackground))
+  .background(Color.appBackground)
 }
