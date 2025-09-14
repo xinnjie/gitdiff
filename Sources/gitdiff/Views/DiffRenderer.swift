@@ -60,7 +60,7 @@ public struct DiffRenderer: View {
         .padding()
       }
     }
-    .background(Color(.systemBackground))
+    .background(Color.appBackground)
   }
 }
 
@@ -103,7 +103,7 @@ public struct DiffRenderer: View {
   
   // With dark theme
   DiffRenderer(diffText: text)
-    .diffTheme(.vsCodeDark)
+    .diffTheme(.dark)
   
   // With custom configuration
   DiffRenderer(diffText: text)
